@@ -3,5 +3,5 @@ from . import views             #importing views of this app to joind them to UR
 
 app_name= 'blog'                #to find app's url better and faster
 urlpatterns = [
-    url(r'^$/', )
+    url(r'^$', views.index )
 ]
