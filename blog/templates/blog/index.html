@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<header>
+    <title>GeeksNegar - Home</title>
+</header>
+<body>
+{% if post_list %}
+    {% for post in post_list %}
+    {% if post.published %}
+        <div><h2>{{ post.title }}</h2></div>
+        <div><h5>{{ post.pub_date }}</h5></div></br>
+        {% if post.video is not None %}
+            <div><h5>{{ post.video }}</h5></div>       
+            <div><h5>{{ post.text }}</h5></div></br>
+        {% endif %}
+        {% if post.image is not None %}
+            <div><img src="/media/{{post.image}}" width="400px" height="400px"></div>          
+            <div><h5>{{ post.text }}</h5></div></br>
+        {% endif %}
+        {% if post.image is None and post.video is None %}            
+            <div><h5>{{ post.text }}</h5></div></br>
+        {% endif %}
+        <hr/>
+    {% endif %}
+    {% endfor %}
+{% else %}
+    <p>No posts are available.</p>
+{% endif %}
+</body>
+</html>
