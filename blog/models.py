@@ -28,6 +28,7 @@ class Image(models.Model):
     def __str__(self):
         return str(self.file)
 
+
 class TeamMember(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     role = models.ManyToManyField('MemberRole')
