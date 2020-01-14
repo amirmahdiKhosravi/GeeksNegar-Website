@@ -2,6 +2,7 @@ from django.contrib import admin
 from .models import Image, MemberRole, Post, TeamMember, Video, Comment
 from django.utils.safestring import mark_safe
 
+
 @admin.register(Image)
 class ImageAdmin(admin.ModelAdmin):
     list_display = ('id','file','image_thumb')
@@ -54,6 +55,7 @@ class PostAdmin(admin.ModelAdmin):
         return " | ".join([p.user.get_username() for p in obj.member.all()])
     get_members.short_description = 'member(s)'
     readonly_fields=('likes', )
+
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):

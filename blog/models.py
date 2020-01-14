@@ -1,6 +1,7 @@
 from django.db import models
 import uuid
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 class Post(models.Model):
     title = models.CharField(max_length=255)
@@ -15,6 +16,13 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+    
+    def get_absolute_url(self):
+        """
+        Returns the url to access a particular author instance.
+        """
+        return '%s' % self.id
+
 
 class Video(models.Model):   
     file = models.FileField(upload_to='videos/')

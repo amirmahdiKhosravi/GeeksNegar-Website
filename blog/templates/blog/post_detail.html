@@ -3,16 +3,14 @@
 
 <header>
     <meta charset="utf-8">
-    <title>GeeksNegar - Home</title>
+    <title>GeeksNegar - {{ post.title }}</title>
 </header>
 <body>
     {% block header %}    
     {% endblock %}
 {% block content %}
-{% if post_list %}
-    {% for post in post_list %}
+{% if post %}
     {% if post.published %}
-    <a href="{{post.id}}">
         <div><h2>{{ post.title }}</h2></div>
         <div><h5>{{ post.pub_date }}</h5></div></br>
         {% if post.video is not None %}
@@ -26,12 +24,15 @@
         {% if post.image is None and post.video is None %}
             <div><h5>{{ post.text }}</h5></div></br>
         {% endif %}
-        <hr/>
+            </hr>
+        <div><h2>Comments</h2></div>
+        {% for comment in post.comments.all %}
+        <div><h3>@{{ comment.user }}</h3></div>
+        <div><h3><pre>   {{ comment.text }}</pre></h3></div><br>
+        {% endfor %}
     {% endif %}
-    </a>    
-    {% endfor %}
 {% else %}
-    <p>No posts are available.</p>
+    <p>this post is not available.</p>
 {% endif %}
 {% endblock %}
 {% block footer %}    
