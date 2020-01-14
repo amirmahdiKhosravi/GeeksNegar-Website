@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Image, MemberRole, Post, TeamMember, Video
+from .models import Image, MemberRole, Post, TeamMember, Video, Comment
 
 @admin.register(Image)
 class ImageAdmin(admin.ModelAdmin):
@@ -29,3 +29,7 @@ class PostAdmin(admin.ModelAdmin):
         return " | ".join([p.user.get_username() for p in obj.member.all()])
     get_members.short_description = 'member(s)'
     readonly_fields=('likes', )
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    pass
