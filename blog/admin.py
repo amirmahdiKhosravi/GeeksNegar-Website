@@ -28,3 +28,4 @@ class PostAdmin(admin.ModelAdmin):
     def get_members(self, obj):
         return " | ".join([p.user.get_username() for p in obj.member.all()])
     get_members.short_description = 'member(s)'
+    readonly_fields=('likes', )

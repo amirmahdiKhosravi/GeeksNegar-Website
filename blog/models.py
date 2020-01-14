@@ -11,6 +11,8 @@ class Post(models.Model):
     video = models.ForeignKey('Video',on_delete=models.CASCADE, null=True , blank = True) 
     image = models.ForeignKey('Image',on_delete=models.CASCADE, null=True , blank = True)
     member = models.ManyToManyField('TeamMember')
+    likes = models.DecimalField(default=0,max_digits=19, decimal_places=0)
+    comments = models.ManyToManyField('Comment')
 
     def __str__(self):
         return self.title
@@ -42,3 +44,10 @@ class MemberRole(models.Model):
 
     def __str__(self):
         return str(self.role)
+
+class Comment(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    text = models.TextField(max_length=350,blank=False)
+
+    def __str__(self):
+        return str(self.user.get_username())+' | '+self.text
