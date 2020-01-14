@@ -8,3 +8,9 @@ def index(request):
     context={'post_list' : post_list
     }
     return render(request, 'blog/index.html',context=context)
+
+def post_detail(request,post_id): #post_id =1
+    obj = get_object_or_404(models.Post, pk=post_id)
+    context={'post' : obj
+    }
+    return render(request, 'blog/post_detail.html',context=context)
