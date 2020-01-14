@@ -24,6 +24,13 @@ class Post(models.Model):
         return '%s' % self.id
 
 
+    def get_absolute_url(self):
+        """
+        Returns the url to access a particular author instance.
+        """
+        return '%s' % self.id
+
+
 class Video(models.Model):
     file = models.FileField(upload_to='videos/')
 
