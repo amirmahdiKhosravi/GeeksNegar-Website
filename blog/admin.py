@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Image, MemberRole, Post, TeamMember, Video, Comment
+from .models import *
 from django.utils.safestring import mark_safe
 
 
@@ -60,3 +60,7 @@ class PostAdmin(admin.ModelAdmin):
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
     list_display = ('id','user','text')
+
+@admin.register(Like)
+class LikeAdmin(admin.ModelAdmin):
+    list_display = ('id','user')

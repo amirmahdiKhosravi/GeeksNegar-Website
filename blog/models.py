@@ -8,10 +8,10 @@ class Post(models.Model):
     text = models.TextField(max_length=5000,blank=True)
     published = models.BooleanField()
     pub_date = models.DateField()
-    video = models.ForeignKey('Video',on_delete=models.CASCADE, null=True , blank = True)
-    image = models.ForeignKey('Image',on_delete=models.CASCADE, null=True , blank = True)
+    video = models.ForeignKey('Video',on_delete=models.SET_NULL, null=True , blank = True)
+    image = models.ForeignKey('Image',on_delete=models.SET_NULL , null=True , blank = True)
     member = models.ManyToManyField('TeamMember')
-    likes = models.DecimalField(default=0,max_digits=19, decimal_places=0)
+    likes = models.ForeignKey('Like',blank=True,null=True,on_delete=models.SET_NULL)
     comments = models.ManyToManyField('Comment',blank=True,null=True)
 
     def __str__(self):
@@ -21,14 +21,7 @@ class Post(models.Model):
         """
         Returns the url to access a particular author instance.
         """
-        return '%s' % self.id
-
-
-    def get_absolute_url(self):
-        """
-        Returns the url to access a particular author instance.
-        """
-        return '%s' % self.id
+        return reverse('blog:post-detail',args=[str(self.id)])
 
 
 class Video(models.Model):
@@ -64,3 +57,9 @@ class Comment(models.Model):
 
     def __str__(self):
         return str(self.user.get_username())+'->'+self.text
+
+class Like(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+
+    def __str___(self):
+        return str(self.user.get_username())
