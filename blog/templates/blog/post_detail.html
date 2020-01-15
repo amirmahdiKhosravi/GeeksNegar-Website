@@ -12,7 +12,7 @@
 {% block header %}    
 {% endblock %}
 {% block content %}
-<div class="container-fluid">
+<div class="container">
 {% if post %}
     {% if post.published %}
         <div><h2>{{ post.title }}</h2></div>
@@ -29,10 +29,10 @@
             <div><h5>{{ post.text }}</h5></div></br>
         {% endif %}
             </hr>
-        <div><h2>Comments</h2></div>
+        <div><h2>Comments <div class="badge">{{ post.comments.all|length }}</div></h2></div>
         {% for comment in post.comments.all %}
         <div><h3>@{{ comment.user }}</h3></div>
-        <div><h3><pre>   {{ comment.text }}</pre></h3></div><br>
+        <div><h3><pre class="well well-lg">   {{ comment.text }}</pre></h3></div><br>
         {% endfor %}
     {% endif %}
 {% else %}
