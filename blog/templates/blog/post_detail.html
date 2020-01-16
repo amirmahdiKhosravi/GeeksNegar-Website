@@ -2,6 +2,7 @@
 
 {% block content %}
 <div class="container">
+    <h1>User: {{ user.get_username }}</h1>
 {% if post %}
     {% if post.published %}
         <div><h2>{{ post.title }}</h2></div>
@@ -18,11 +19,65 @@
             <div><h5>{{ post.text }}</h5></div></br>
         {% endif %}
             </hr>
+
+        <!-- Like table -->    
+        <table>
+        <tr>               
+            <td><div class="badge" id="likecount">{{ post_like.likecount }}</div></td>
+            {% if user.is_authenticated %}
+        <!-- Like button load -->
+                {% if post_like.likecount != 0 %}
+                    {% for usr in post_like.user.all|slice:":1" %}
+
+                        {% if usr.get_username == user.get_username %}
+                            <td><button type="button" class="btn btn-request" name="{{post.id}}" id="like">Liked</button></td>
+                        {% else %}
+                            <td><button type="button" class="btn btn-request" name="{{post.id}}" id="like">Like</button></td>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <td><button type="button" class="btn btn-request" name="{{post.id}}" id="like">Like</button></td>
+                {% endif %}
+        </tr>
+        </table>
+        <!--AJAX Like button handle -->
+        <script>
+            $('#like').click(function(){         
+                  $.ajax({
+                           type: "POST",
+                           url: "{% url 'blog:post-detail' post.id %}",
+                           data: {'tutorial_id': $(this).attr('name'), 
+                           'csrfmiddlewaretoken': '{{csrf_token}}'},                  
+                           dataType: "text",
+                           success: function(response) {
+                            if($("#like").text() == "Like"){
+                                $("#like").html("Liked");
+                                $("#likecount").text( {{ post_like.likecount }} +1);
+                                }
+                            else{
+                                $("#like").html("Like");
+                                $("#likecount").text( $("#likecount").text() - 1);
+                                }
+                            },
+                            error: function(rs, e) {
+                                  alert(rs.responseText);
+                            }
+                      }); 
+                })
+        </script>
+
+        <!-- if user not logged in -->
+        {% else %}
+            <div><p>Please <a href=""></a>Login!</p></div>
+        </tr>
+        </table>
+        {% endif %}
         <div><h2>Comments <div class="badge">{{ post.comments.all|length }}</div></h2></div>
         {% for comment in post.comments.all %}
         <div><h3>@{{ comment.user }}</h3></div>
         <div><h3><pre class="well well-lg">   {{ comment.text }}</pre></h3></div><br>
         {% endfor %}
+
     {% endif %}
 {% else %}
     <p>this post is not available.</p>
