@@ -6,7 +6,8 @@ from django.views import generic
 
 def index(request):
     post_list =  models.Post.objects.order_by('-pub_date')
-    context={'post_list' : post_list
+    slider_list= models.Slider.objects.order_by('-id')
+    context={'post_list' : post_list, 'slider_list' : slider_list
     }
     return render(request, 'blog/index.html',context=context)
 
@@ -14,7 +15,7 @@ def post_detail(request,post_id='1'):
     post_like_handle(request,post_id)
     obj = get_object_or_404(models.Post, pk=post_id)
     post_like, created = models.Like.objects.get_or_create(post=obj)
-    context={'post' : obj,    
+    context={'post' : obj,
             'post_like' : post_like
     }
     return render(request, 'blog/post_detail.html',context=context)
@@ -40,4 +41,3 @@ def post_like_handle(request,post_id='1'):
         context={'post' : create_id
         }
         return render(request, 'blog/post_detail.html',context=context)
-
