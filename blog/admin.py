@@ -67,7 +67,3 @@ class LikeAdmin(admin.ModelAdmin):
 
     def get_users(self, obj):
         return " | ".join([p.get_username() for p in obj.user.all()])
-
-@admin.register(Slider)
-class SliderAdmin(admin.ModelAdmin):
-    list_display=()
