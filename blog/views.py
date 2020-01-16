@@ -1,8 +1,10 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from . import models
+from .forms import *
 from GeeksNegar import settings
 from django.views import generic
+from django.urls import reverse
 
 def index(request):
     post_list =  models.Post.objects.order_by('-pub_date')
@@ -15,7 +17,8 @@ def post_detail(request,post_id='1'):
     obj = get_object_or_404(models.Post, pk=post_id)
     post_like, created = models.Like.objects.get_or_create(post=obj)
     context={'post' : obj,    
-            'post_like' : post_like
+            'post_like' : post_like,
+            'form_cm' : CommentForm
     }
     return render(request, 'blog/post_detail.html',context=context)
 
@@ -41,3 +44,28 @@ def post_like_handle(request,post_id='1'):
         }
         return render(request, 'blog/post_detail.html',context=context)
 
+
+def comment_handler(request,post_id='1'):
+    # if this is a POST request we need to process the form data
+    obj = get_object_or_404(models.Post, pk=post_id)
+    if request.method == 'POST':
+        
+        print("session 2")
+        # create a form instance and populate it with data from the request:
+        form = CommentForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            print("form valid 2")
+            # process the data in form.cleaned_data as required
+            comment_text = form.cleaned_data['comment_text']
+            comment, created = models.Comment.objects.get_or_create( user=request.user , text=comment_text )
+            comment.save()
+            obj.comments.add(comment)   
+            obj.save()         
+            # redirect to a new URL:
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = CommentForm()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
