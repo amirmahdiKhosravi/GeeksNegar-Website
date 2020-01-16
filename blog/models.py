@@ -11,7 +11,7 @@ class Post(models.Model):
     video = models.ForeignKey('Video',on_delete=models.SET_NULL, null=True , blank = True)
     image = models.ForeignKey('Image',on_delete=models.SET_NULL , null=True , blank = True)
     member = models.ManyToManyField('TeamMember')
-    likes = models.ForeignKey('Like',blank=True,null=True,on_delete=models.SET_NULL)
+    #likes = models.ManyToManyField('Like',blank=True,null=True)
     comments = models.ManyToManyField('Comment',blank=True,null=True)
 
     def __str__(self):
@@ -59,7 +59,9 @@ class Comment(models.Model):
         return str(self.user.get_username())+'->'+self.text
 
 class Like(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    user = models.ManyToManyField(User, related_name='likes',null=True)
+    post = models.ForeignKey(Post, on_delete=models.SET_NULL,null=True)
+    likecount = models.IntegerField(default=0)
 
     def __str___(self):
         return str(self.user.get_username())

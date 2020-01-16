@@ -54,7 +54,7 @@ class PostAdmin(admin.ModelAdmin):
     def get_members(self, obj):
         return " | ".join([p.user.get_username() for p in obj.member.all()])
     get_members.short_description = 'member(s)'
-    readonly_fields=('likes', )
+    #readonly_fields=('likes', )
 
 
 @admin.register(Comment)
@@ -63,4 +63,7 @@ class CommentAdmin(admin.ModelAdmin):
 
 @admin.register(Like)
 class LikeAdmin(admin.ModelAdmin):
-    list_display = ('id','user')
+    list_display = ('id','get_users','post','likecount')
+
+    def get_users(self, obj):
+        return " | ".join([p.get_username() for p in obj.user.all()])
