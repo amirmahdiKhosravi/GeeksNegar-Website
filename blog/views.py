@@ -8,7 +8,8 @@ from django.urls import reverse
 
 def index(request):
     post_list =  models.Post.objects.order_by('-pub_date')
-    context={'post_list' : post_list
+    slider_list= models.Slider.objects.order_by('-id')
+    context={'post_list' : post_list, 'slider_list' : slider_list
     }
     return render(request, 'blog/index.html',context=context)
 
