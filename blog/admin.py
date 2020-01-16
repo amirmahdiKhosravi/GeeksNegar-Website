@@ -42,11 +42,11 @@ class MemberRoleAdmin(admin.ModelAdmin):
 @admin.register(TeamMember)
 class TeamMemberAdmin(admin.ModelAdmin):
     pass
-    
+
 class TeamMemberInline(admin.TabularInline):
     model = TeamMember
     extra = 2
-    
+
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     list_filter = ('title', 'text','pub_date')
@@ -67,3 +67,7 @@ class LikeAdmin(admin.ModelAdmin):
 
     def get_users(self, obj):
         return " | ".join([p.get_username() for p in obj.user.all()])
+
+@admin.register(Slider)
+class SliderAdmin(admin.ModelAdmin):
+    list_display=()
