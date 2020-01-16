@@ -19,6 +19,14 @@ class ImageAdmin(admin.ModelAdmin):
     image_show.allow_tags = True
     image_show.__name__ = 'Preview'
 
+@admin.register(Slider)
+class SliderAdmin(admin.ModelAdmin):
+    list_display=('id', 'header', 'image_thumb')
+    def image_thumb(self,obj):
+        return mark_safe('<img src="%s" width=\'100\' height=\'100\'/>' % str('/media/'+str(obj.image)))
+    # image_show.allow_tags = True
+    # image_show.__name__ = 'Preview'
+
 @admin.register(Video)
 class VideoAdmin(admin.ModelAdmin):
     list_display = ('id','file','video_thumb')
@@ -67,6 +75,3 @@ class LikeAdmin(admin.ModelAdmin):
 
     def get_users(self, obj):
         return " | ".join([p.get_username() for p in obj.user.all()])
-@admin.register(Slider)
-class SliderAdmin(admin.ModelAdmin):
-    list_display=('id', 'header')
