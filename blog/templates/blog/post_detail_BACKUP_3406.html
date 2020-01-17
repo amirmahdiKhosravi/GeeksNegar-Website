@@ -71,6 +71,13 @@
         </tr>
         </table>
         {% endif %}
+<<<<<<< HEAD
+        <div><h2>Comments <div class="badge">{{ post.comments.all|length }}</div></h2></div>
+        {% for comment in post.comments.all %}
+        <div><h3>@{{ comment.user }}</h3></div>
+        <div><h3><pre class="well well-lg">   {{ comment.text }}</pre></h3></div><br>
+        {% endfor %}
+=======
     <!-- Comments show button -->
            <button class="btn btn-light" type="button" id="CMSHOWbtn"
            data-toggle="collapse" data-target="#collapseComments" aria-expanded="false" aria-controls="collapseComments">
@@ -81,12 +88,12 @@
             Members <div class="badge">{{ post.member.all|length }}</div></button>
         </div>
     </div>
-
+    
     <div class="container">
         <div class="collapse multi-collapse" id="collapseComments" >
             <br/><br/><div class="text-center"><h4>Leave a New Comment</h4></div><hr/>
             {% if user.is_authenticated %}
-
+            
             <form class="form-group" action="{{ post.id }}/add-comment/" method="post">
                 {% csrf_token %}
                 {% for non_field_error in form.non_field_errors %}
@@ -133,7 +140,7 @@
                 <div><h3><pre class="well well-lg">There is no members to show</pre></h3></div><br>
                 {% endif %}
             </div>
-        </div>
+        </div> 
     </div>
 
     <script>
@@ -148,6 +155,7 @@
             });
         });
     </script>
+>>>>>>> 341645b07b14e76074d1138b962e037b7340dea3
 
     {% endif %}
 {% else %}

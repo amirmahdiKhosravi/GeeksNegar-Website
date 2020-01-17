@@ -1,7 +1,6 @@
 {% extends 'blog/base.html' %}
 {% block content %}
 <div class="container">
-    <h1>User: {{ user.get_username }}</h1>
 {% if post %}
     {% if post.published %}
         <div><h2>{{ post.title }}</h2></div>
@@ -19,34 +18,36 @@
         {% endif %}
             </hr>
 
-        <!-- Like table -->
-        <table>
-        <tr>
-            <td><div class="badge" id="likecount">{{ post_like.likecount }}</div></td>
+        <!-- Like table -->   
+    <div class="">
+        Likes : 
+        <div class="badge" id="likecount">{{ post_like.likecount }}</div>
+    </div>
+
+    <div class="btn-group btn-group-lg">
+            <!--  -->
             {% if user.is_authenticated %}
-        <!-- Like button load -->
+            <!-- Like button load -->
                 {% if post_like.likecount != 0 %}
                     {% for usr in post_like.user.all|slice:":1" %}
 
                         {% if usr.get_username == user.get_username %}
-                            <td><button type="button" class="btn btn-request" name="{{post.id}}" id="like">Liked</button></td>
+                            <button type="button" class="btn btn-light" name="{{post.id}}" id="like">Liked</button>
                         {% else %}
-                            <td><button type="button" class="btn btn-request" name="{{post.id}}" id="like">Like</button></td>
+                            <button type="button" class="btn btn-light" name="{{post.id}}" id="like">Like</button>
                         {% endif %}
                     {% endfor %}
                 {% else %}
-                    <td><button type="button" class="btn btn-request" name="{{post.id}}" id="like">Like</button></td>
+                    <button type="button" class="btn btn-light" name="{{post.id}}" id="like">Like</button>
                 {% endif %}
-        </tr>
-        </table>
         <!--AJAX Like button handle -->
         <script>
-            $('#like').click(function(){
+            $('#like').click(function(){         
                   $.ajax({
                            type: "POST",
                            url: "{% url 'blog:post-detail' post.id %}",
-                           data: {'tutorial_id': $(this).attr('name'),
-                           'csrfmiddlewaretoken': '{{csrf_token}}'},
+                           data: {'tutorial_id': $(this).attr('name'), 
+                           'csrfmiddlewaretoken': '{{csrf_token}}'},                  
                            dataType: "text",
                            success: function(response) {
                             if($("#like").text() == "Like"){
@@ -61,15 +62,15 @@
                             error: function(rs, e) {
                                   alert(rs.responseText);
                             }
-                      });
+                      }); 
                 })
         </script>
 
         <!-- if user not logged in -->
         {% else %}
-            <div><p>Please <a href=""></a>Login!</p></div>
-        </tr>
-        </table>
+            <button class="btn btn-light">Please Login!</button>
+
+
         {% endif %}
     <!-- Comments show button -->
            <button class="btn btn-light" type="button" id="CMSHOWbtn"
@@ -81,12 +82,12 @@
             Members <div class="badge">{{ post.member.all|length }}</div></button>
         </div>
     </div>
-
+    
     <div class="container">
         <div class="collapse multi-collapse" id="collapseComments" >
             <br/><br/><div class="text-center"><h4>Leave a New Comment</h4></div><hr/>
             {% if user.is_authenticated %}
-
+            
             <form class="form-group" action="{{ post.id }}/add-comment/" method="post">
                 {% csrf_token %}
                 {% for non_field_error in form.non_field_errors %}
@@ -133,7 +134,7 @@
                 <div><h3><pre class="well well-lg">There is no members to show</pre></h3></div><br>
                 {% endif %}
             </div>
-        </div>
+        </div> 
     </div>
 
     <script>

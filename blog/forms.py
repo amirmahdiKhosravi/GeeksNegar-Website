@@ -1,4 +1,5 @@
 from django import forms
     
-class LikePostForm(forms.Form):
-    pass
+class CommentForm(forms.Form):
+    comment_text = forms.CharField(label="Your Comment",widget=forms.Textarea(attrs={'class' : 'form-control'}))
+
