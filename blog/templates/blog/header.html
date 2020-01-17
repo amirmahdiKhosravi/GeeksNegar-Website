@@ -7,24 +7,29 @@
       <li class="active" style="color:rgb(224, 224, 209);"><a href="/blog/ ">Home</a></li>
       <li ><a href="#" style="color:rgb(224, 224, 209);">contact us</a></li>
       <li><a href="#" style="color:rgb(224, 224, 209);" >about geeks</a></li>
-
+      
     </ul>
     <div>
+    <div class="container">
     {% if user.is_authenticated %}
     <div class="btn-group">
       <button type="button" class="btn btn-primary">{{ user.get_username }}</button>
       <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">
         <span class="caret"></span>
       </button>
-      <div class="dropdown-menu">
-        <a class="dropdown-item" href="{% url 'logout'%}?next={{request.path}}">Logout</a>
-      </div>
+      <ul class="dropdown-menu">
+        <li><a href="#">Profile</a></li>
+        <li class="divider"></li>
+        <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
+      </ul>
     </div>
     {% else %}
     <div class="btn-group">
-      <button type="button" class="btn btn-primary"><a href="{% url 'login'%}?next={{request.path}}">Login</a></button>
+      <a class="btn btn-primary" href="{% url 'login'%}?next={{request.path}}" class="btn btn-primary">Login</a>
+      <a class="btn btn-primary" href="{% url 'accounts:signup'%}?next={{request.path}}">Sign Up</a>
     </div>
     {% endif %} 
+  </div>
     </div>
   </div>
 </nav>

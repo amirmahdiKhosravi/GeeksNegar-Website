@@ -48,9 +48,11 @@
 
   {% block content %}
   <div class="container">
-    <div class="row">
-      {% if post_list %}
 
+    <div class="row">
+      <div><h3>پست های اخیر</h3></div>
+      <hr/>
+      {% if post_list %}
       {% for post in post_list %}
       {% if post.published %}
       <div class="col-sm-4">
