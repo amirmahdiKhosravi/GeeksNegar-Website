@@ -7,6 +7,24 @@
       <li class="active" style="color:rgb(224, 224, 209);"><a href="/blog/ ">Home</a></li>
       <li ><a href="#" style="color:rgb(224, 224, 209);">contact us</a></li>
       <li><a href="#" style="color:rgb(224, 224, 209);" >about geeks</a></li>
+
     </ul>
+    <div>
+    {% if user.is_authenticated %}
+    <div class="btn-group">
+      <button type="button" class="btn btn-primary">{{ user.get_username }}</button>
+      <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">
+        <span class="caret"></span>
+      </button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="{% url 'logout'%}?next={{request.path}}">Logout</a>
+      </div>
+    </div>
+    {% else %}
+    <div class="btn-group">
+      <button type="button" class="btn btn-primary"><a href="{% url 'login'%}?next={{request.path}}">Login</a></button>
+    </div>
+    {% endif %} 
+    </div>
   </div>
 </nav>
