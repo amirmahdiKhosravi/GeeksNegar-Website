@@ -2,6 +2,7 @@
 
 {% block content %}
 <div class="container">
+    <h1>User: {{ user.get_username }}</h1>
 {% if post %}
     {% if post.published %}
         <div><h2>{{ post.title }}</h2></div>
@@ -19,36 +20,34 @@
         {% endif %}
             </hr>
 
-        <!-- Like table -->   
-    <div class="">
-        Likes : 
-        <div class="badge" id="likecount">{{ post_like.likecount }}</div>
-    </div>
-
-    <div class="btn-group btn-group-lg">
-            <!--  -->
+        <!-- Like table -->
+        <table>
+        <tr>
+            <td><div class="badge" id="likecount">{{ post_like.likecount }}</div></td>
             {% if user.is_authenticated %}
-            <!-- Like button load -->
+        <!-- Like button load -->
                 {% if post_like.likecount != 0 %}
                     {% for usr in post_like.user.all|slice:":1" %}
 
                         {% if usr.get_username == user.get_username %}
-                            <button type="button" class="btn btn-light" name="{{post.id}}" id="like">Liked</button>
+                            <td><button type="button" class="btn btn-request" name="{{post.id}}" id="like">Liked</button></td>
                         {% else %}
-                            <button type="button" class="btn btn-light" name="{{post.id}}" id="like">Like</button>
+                            <td><button type="button" class="btn btn-request" name="{{post.id}}" id="like">Like</button></td>
                         {% endif %}
                     {% endfor %}
                 {% else %}
-                    <button type="button" class="btn btn-light" name="{{post.id}}" id="like">Like</button>
+                    <td><button type="button" class="btn btn-request" name="{{post.id}}" id="like">Like</button></td>
                 {% endif %}
+        </tr>
+        </table>
         <!--AJAX Like button handle -->
         <script>
-            $('#like').click(function(){         
+            $('#like').click(function(){
                   $.ajax({
                            type: "POST",
                            url: "{% url 'blog:post-detail' post.id %}",
-                           data: {'tutorial_id': $(this).attr('name'), 
-                           'csrfmiddlewaretoken': '{{csrf_token}}'},                  
+                           data: {'tutorial_id': $(this).attr('name'),
+                           'csrfmiddlewaretoken': '{{csrf_token}}'},
                            dataType: "text",
                            success: function(response) {
                             if($("#like").text() == "Like"){
@@ -63,70 +62,21 @@
                             error: function(rs, e) {
                                   alert(rs.responseText);
                             }
-                      }); 
+                      });
                 })
         </script>
 
         <!-- if user not logged in -->
         {% else %}
-            <button class="btn btn-light">Please Login!</button>
-
-
+            <div><p>Please <a href=""></a>Login!</p></div>
+        </tr>
+        </table>
         {% endif %}
-    <!-- Comments show button -->
-           <button class="btn btn-light" type="button" id="CMSHOWbtn"
-           data-toggle="collapse" data-target="#collapseComments" aria-expanded="false" aria-controls="collapseComments">
-           Comments <div class="badge">{{ post.comments.all|length }}</div></button>
-        <!-- team members show button -->
-            <button class="btn btn-light" type="button" id="TMSHOWbtn"
-            data-toggle="collapse" data-target="#collapseTeam" aria-expanded="false" aria-controls="collapseTeam">
-            Members <div class="badge">{{ post.member.all|length }}</div></button>
-        </div>
-    </div>
-    
-    <div class="container">
-        <div class="collapse multi-collapse" id="collapseComments" >
-            <div class="card card-body">
-                {% if post.comments.all|length %}
-                    {% for comment in post.comments.all %}
-                    <div><h3>@{{ comment.user }}</h3></div>
-                    <div><h3><pre class="well well-lg">   {{ comment.text }}</pre></h3></div><br>
-                    {% endfor %}
-                {% else %}
-                <div><h3><pre class="well well-lg">There is no Comments to show</pre></h3></div><br>
-                {% endif %}
-            </div>
-        </div>
-        <div class="collapse multi-collapse" id="collapseTeam">
-            <div class="card card-body">
-                {% if post.member.all|length %}
-                    {% for team_member in post.member.all %}
-                    <div><h3>@{{ team_member.user }}</h3></div>
-                        <ul class="well well-lg">
-                        {% for role in team_member.role.all %}
-                            <li><div><h3><pre>{{ role }}</pre></h3></div><br></li>
-                        {% endfor %}
-                        </ul>
-                    {% endfor %}
-                {% else %}
-                <div><h3><pre class="well well-lg">There is no members to show</pre></h3></div><br>
-                {% endif %}
-            </div>
-        </div> 
-    </div>
-
-    <script>
-        $(document).ready(function(){
-            $("#TMSHOWbtn").click(function(){
-                $("#collapseComments").collapse('hide');
-            });
-        });
-        $(document).ready(function(){
-            $("#CMSHOWbtn").click(function(){
-                $("#collapseTeam").collapse('hide');
-            });
-        });
-    </script>
+        <div><h2>Comments <div class="badge">{{ post.comments.all|length }}</div></h2></div>
+        {% for comment in post.comments.all %}
+        <div><h3>@{{ comment.user }}</h3></div>
+        <div><h3><pre class="well well-lg">   {{ comment.text }}</pre></h3></div><br>
+        {% endfor %}
 
     {% endif %}
 {% else %}
