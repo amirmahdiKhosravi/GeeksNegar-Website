@@ -23,10 +23,14 @@ urlpatterns = [
 
     url(r'^admin/', admin.site.urls),
     url(r'^blog/', include('blog.urls')),
-
+ 
 ]
 
 # SET STATIC URLS :
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += [
+    url(r'^accounts/', include('accounts.urls')),
+    url(r'^accounts/', include('django.contrib.auth.urls')),
+]

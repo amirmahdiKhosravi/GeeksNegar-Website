@@ -4,7 +4,8 @@ from . import models
 from .forms import *
 from GeeksNegar import settings
 from django.views import generic
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
+from django.contrib.auth.forms import UserCreationForm
 
 def index(request):
     post_list =  models.Post.objects.order_by('-pub_date')
@@ -70,3 +71,8 @@ def comment_handler(request,post_id='1'):
     else:
         form = CommentForm()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+class SignUp(generic.CreateView):
+    form_class = UserCreationForm
+    success_url = reverse_lazy('login')
+    template_name = './templates/resigtration/signup.html'
