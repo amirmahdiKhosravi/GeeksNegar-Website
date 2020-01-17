@@ -18,14 +18,14 @@
         {% for slides in slider_list %}
         {% if forloop.counter0 == 0 %}
         <div class="item active">
-          <img src="/media/{{slides.image}}" alt="{{slides.header}}" style="width:100%;">
+          <img src="/media/{{slides.image}}" alt="{{slides.header}}" style="width:100%; height:550px">
           <div class="carousel-caption">
             <h2>{{slides.header}}</h2>
           </div>
         </div>
         {% else %}
         <div class="item">
-          <img src="/media/{{slides.image}}" alt="{{slides.header}}" style="width:100%;">
+          <img src="/media/{{slides.image}}" alt="{{slides.header}}" style="width:100%; height:550px">
           <div class="carousel-caption">
             <h2>{{slides.header}}</h2>
           </div>
