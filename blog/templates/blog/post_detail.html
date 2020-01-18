@@ -26,12 +26,12 @@
         <!-- Like button load -->
                 {% if post_like.likecount != 0 %}
                     {% if user in post_like.user.all %}
-                        <td><button type="button" class="btn btn-request" name="{{post.id}}" id="like">Liked</button></td>      
+                    <td><button type="button" class="btn btn-request" name="{{post.id}}" id="like"><i class="fa fa-heart"></i></button></td> 
                     {% else %}
-                        <td><button type="button" class="btn btn-request" name="{{post.id}}" id="like">Like</button></td>
+                        <td><button type="button" class="btn btn-request" name="{{post.id}}" id="like"><i class="fa fa-heart-o"></i></button></td>
                     {% endif %}
                 {% else %}
-                    <td><button type="button" class="btn btn-request" name="{{post.id}}" id="like">Like</button></td>
+                    <td><button type="button" class="btn btn-request" name="{{post.id}}" id="like"><i class="fa fa-heart-o"></i></button></td>
                 {% endif %}
         </tr>
         </table>
@@ -67,6 +67,7 @@
         </tr>
         </table>
         {% endif %}
+        <div class="row"></div>
     <!-- Comments show button -->
            <button class="btn btn-light" type="button" id="CMSHOWbtn"
            data-toggle="collapse" data-target="#collapseComments" aria-expanded="false" aria-controls="collapseComments">
