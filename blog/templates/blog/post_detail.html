@@ -25,14 +25,11 @@
             {% if user.is_authenticated %}
         <!-- Like button load -->
                 {% if post_like.likecount != 0 %}
-                    {% for usr in post_like.user.all|slice:":1" %}
-
-                        {% if usr.get_username == user.get_username %}
-                            <td><button type="button" class="btn btn-request" name="{{post.id}}" id="like">Liked</button></td>
-                        {% else %}
-                            <td><button type="button" class="btn btn-request" name="{{post.id}}" id="like">Like</button></td>
-                        {% endif %}
-                    {% endfor %}
+                    {% if user in post_like.user.all %}
+                        <td><button type="button" class="btn btn-request" name="{{post.id}}" id="like">Liked</button></td>      
+                    {% else %}
+                        <td><button type="button" class="btn btn-request" name="{{post.id}}" id="like">Like</button></td>
+                    {% endif %}
                 {% else %}
                     <td><button type="button" class="btn btn-request" name="{{post.id}}" id="like">Like</button></td>
                 {% endif %}
