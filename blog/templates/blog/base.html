@@ -3,8 +3,8 @@
 <html lang="fa">
 <head>
 
-  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" /> 
-  <!-- Latest compiled and minified CSS --> 
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+  <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
   <!-- jQuery library -->
@@ -21,13 +21,68 @@
   <meta charset="utf-8">
   <title>GeeksNegar</title>
 
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
   {% block extraCss %}
   {% endblock %}
 
 </head>
-<body>
+<body style="background-color:rgb(77, 77, 77);">
+
   {% block header %}
-  {% include "blog/header.html" %}
+  <nav class="navbar navbar-expand-sm navbar-dark" style=" background-color:rgb(128, 0, 0);">
+    <div class="container-fluid">
+      <!-- Brand/logo -->
+      <a class="navbar-brand" href="#">GeeksNegar</a>
+
+      <!-- Links -->
+      <ul class="navbar-nav" style="margin-right:700px; ">
+        <li class="nav-item">
+          <a class="nav-link" href="/blog/" style="color:rgb(217, 217, 217);">Home</a>
+        </li>
+        <li class="nav-item" >
+          <a class="nav-link" href="#" style="color:rgb(217, 217, 217);" >Contact Us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" style="color:rgb(217, 217, 217);" >About Us</a>
+        </li>
+      </ul>
+      <!-- <div class="navbar-header" style="background-color:rgb(128, 0, 0); margin: 0px 10px 0px -5px; padding-left: 10px">
+      <a class="navbar-brand" href="#" style="color:rgb(224, 224, 209);" >GeeksNegar</a>
+    </div>
+    <ul class="nav navbar-nav">
+    <li class="active" style="color:rgb(224, 224, 209);"><a href="/blog/ ">Home</a></li>
+    <li ><a href="#" style="color:rgb(224, 224, 209);">contact us</a></li>
+    <li><a href="#" style="color:rgb(224, 224, 209);" >about geeks</a></li>
+
+  </ul> -->
+  <div>
+    <div class="container">
+      {% if user.is_authenticated %}
+      <div class="btn-group" >
+        <button type="button" class="btn btn-primary" >{{ user.get_username }}</button>
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+          </button>
+          <div class="dropdown-menu" style="margin-left: -100px;">
+            <a class="dropdown-item" href="#">Profile</a>
+            <a  class="dropdown-item" href="{% url 'logout'%}?next={{request.path}}">Logout</a>
+          </div>
+        </div>
+      </div>
+      {% else %}
+      <div class="btn-group">
+        <a class="btn btn-primary" href="{% url 'login'%}?next={{request.path}}" class="btn btn-primary">Login</a>
+        <a class="btn btn-primary" href="{% url 'accounts:signup'%}?next={{request.path}}">Sign Up</a>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+  </div>
+  </nav>
+
   {% endblock %}
 
   {% block content %}
@@ -35,7 +90,27 @@
   {% endblock %}
 
   {% block footer %}
-  {% include "blog/footer.html" %}
+  <footer style="background-color:rgb(77, 0, 0);">
+    <div class="container">
+      <div class="row" style="color:rgb(224, 224, 209); padding-top:45px; padding-bottom:30px;">
+        <div class="col-sm-4">
+          <h3>Address:</h3>
+          <p>University Of Guilan, Rasht, Iran</p>
+        </div>
+        <div class="col-sm-8">
+          <h3>Contact Us:</h3>
+          <i class="fa fa-instagram" style="font-size:36px"><a href="https://www.instagram.com/geeksnegar/" style="color:rgb(217, 217, 217); font-size:25px;">  :    @geeksnegar</a></i><br><br>
+          <i class="fa fa-telegram" style="font-size:36px"><a href="https://t.me/geeksnegar" style="color:rgb(217, 217, 217); font-size:25px;">  :    @geeksnegar</a> </i><br><br>
+          <a href="https://gitlab.com/amirmahdi.khosravi/geeksnegar" style="color:rgb(217, 217, 217); font-size:25px;"><i class="fa fa-gitlab" style="font-size:36px"></i></a><br><br>
+        </div>
+        <!-- <div class="col-sm-4">
+          <h3>Column 3</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
+          <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+        </div> -->
+      </div>
+    </div>
+  </footer>
   {% endblock %}
 
 </body>
