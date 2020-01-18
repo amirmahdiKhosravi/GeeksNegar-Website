@@ -1,12 +1,125 @@
-{% extends 'blog/base.html' %}
 
-{% block title %}Sign Up{% endblock %}
+<!doctype html>
+{% load static %}
 
 {% block content %}
-  <h2>Sign up</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Sign up</button>
-  </form>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<title>GeeksNegar - Sign Up</title>
+
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+
+	<!--     Fonts and icons     -->
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet">
+
+	<!-- CSS Files -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
+	<link href="{% static 'css/gsdk-bootstrap-wizard.css' %}" rel="stylesheet" />
+
+	<!-- CSS Just for demo purpose, don't include it in your project -->
+	<link href="{% static 'css/demo.css' %}" rel="stylesheet" />
+</head>
+
+<body>
+<div class="image-container set-full-height" style="background-image: url('{% static 'img/wizard.jpg' %}')">
+    <!--   Creative Tim Branding   -->
+    <a href="http://creative-tim.com">
+         <div class="logo-container">
+            <div class="logo">
+
+            </div>
+            <div class="brand">
+                GeeksNegar
+            </div>
+        </div>
+    </a>
+
+	<!--  Made With Get Shit Done Kit  -->
+		<a href="http://demos.creative-tim.com/get-shit-done/index.html?ref=get-shit-done-bootstrap-wizard" class="made-with-mk">
+			<div class="brand">GK</div>
+			<div class="made-with">Made with <strong>GSDK</strong></div>
+		</a>
+
+<!--   Big container   -->
+<div class="container">
+  <div class="row">
+  <div class="col-sm-8 col-sm-offset-2">
+
+      <!--      Wizard container        -->
+      <div class="wizard-container">
+
+          <div class="card wizard-card" data-color="red" id="wizardProfile">
+          <!--        You can switch ' data-color="orange" '  with one of the next bright colors: "blue", "green", "orange", "red"          -->
+
+                <div class="wizard-header">
+                    <h3>
+                       <b>LOGIN </b>TO YOUR PROFILE <br>
+                    </h3>
+                </div>
+
+      <div class="wizard-navigation">
+        <ul>
+                        <li><a href="#signuptab" data-toggle="tab">Sign up</a></li>
+                        <li><a href="{% url 'login' %}">Login</a></li>
+                    </ul>
+
+      </div>
+
+
+        
+                  <div class="tab-content">
+
+                      <div class="form-group tab-pane" id="signuptab">
+                        <div class="row">
+                            <div class="col-sm-4 col-sm-offset-1">
+                              
+                               <div class="picture-container">
+                                    <div class="picture">
+                                        <img src="{% static 'img/default-avatar.png' %}" class="picture-src" id="wizardPicturePreview" title=""/>
+                                        <input type="file" id="wizard-picture">
+                                    </div>
+                                    <h6>Choose Picture</h6>
+                                </div>
+                                
+                            </div>
+                            <div class="col-sm-4">
+                                <form method="post">
+                                    {% csrf_token %}
+                                    {{ form.as_p }}
+                                    <button type="submit">Sign up</button>
+                                
+                </form>
+                            </div>
+                        </div>
+                      </div>
+                    
+
+                  </div>
+          </div>
+        
+      </div> <!-- wizard container -->
+  </div>
+  </div><!-- end row -->
+</div> <!--  big container -->
+
+
+</div>
+
+</body>
+
+	<!--   Core JS Files   -->
+	<script src="{% static 'js/jquery-2.2.4.min.js' %}" type="text/javascript"></script>
+	<script src="{% static 'js/bootstrap.min.js' %}" type="text/javascript"></script>
+	<script src="{% static 'js/jquery.bootstrap.wizard.js' %}" type="text/javascript"></script>
+
+	<!--  Plugin for the Wizard -->
+	<script src="{% static 'js/gsdk-bootstrap-wizard.js' %}"></script>
+
+	<!--  More information about jquery.validate here: http://jqueryvalidation.org/	 -->
+	<script src="{% static 'js/jquery.validate.min.js' %}"></script>
+
+</html>
 {% endblock %}
