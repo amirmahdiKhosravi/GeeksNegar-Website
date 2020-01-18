@@ -52,7 +52,7 @@
                 <div class="item-box-blog-text">
                   <p>{{post.text}}</p>
                 </div>
-                <div class="mt"> <a href="{% url 'blog:post-detail' {{ post.id }} %}" tabindex="0" class="btn bg-blue-ui white read">read more</a> </div>
+                <div class="mt"> <a href="{% url 'blog:post-detail' post.id %}" tabindex="0" class="btn bg-blue-ui white read">read more</a> </div>
                 <!--Read More Button-->
               </div>
             </div>
