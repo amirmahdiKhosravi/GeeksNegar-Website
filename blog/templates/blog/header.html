@@ -14,14 +14,14 @@
     {% if user.is_authenticated %}
     <div class="btn-group">
       <button type="button" class="btn btn-primary">{{ user.get_username }}</button>
-      <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown">
-        <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu">
-        <li><a href="#">Profile</a></li>
-        <li class="divider"></li>
-        <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
-      </ul>
+      <div class="btn-group">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+        </button>
+        <div class="dropdown-menu" style="margin-left: -100px;">
+            <a class="dropdown-item" href="#">Profile</a>
+            <a  class="dropdown-item" href="{% url 'logout'%}?next={{request.path}}">Logout</a>
+        </div>
+      </div>
     </div>
     {% else %}
     <div class="btn-group">
@@ -29,7 +29,7 @@
       <a class="btn btn-primary" href="{% url 'accounts:signup'%}?next={{request.path}}">Sign Up</a>
     </div>
     {% endif %} 
-  </div>
+    </div>
     </div>
   </div>
 </nav>
