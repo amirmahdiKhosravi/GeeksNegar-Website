@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404,HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views import generic
@@ -45,22 +45,20 @@ def ProfileViewOther(request,username):
     return render(request, 'accounts/profile_other.html',context=context)
 
 def prfilepicchange(request,username):
+    # if this is a POST request we need to process the form data\
     if request.method == 'POST':
-            user = request.user
-            custom_user, created = models.CustomUser.objects.get_or_create(user=user)
-            try:
-                user_liked = models.Like.objects.get(post=create_id, user=user)
-            except:
-                user_liked = None
+        # create a form instance and populate it with data from the request:
+        form = ProfilePicForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            pic_file = request.POST.get('pic')
+            custom_user, created = models.CustomUser.objects.get_or_create( user=request.user , profile_pic=pic_file )
+            custom_user.save()
+            # redirect to a new URL:
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
-            if user_liked:
-                user_liked.likecount -= 1
-                liked.user.remove(request.user)
-                user_liked.save()
-            else:
-                liked.user.add(request.user)
-                liked.likecount += 1
-                liked.save()
-            context={'post' : create_id
-            }
-            return render(request, 'blog/post_detail.html',context=context)
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = ProfilePicForm()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
