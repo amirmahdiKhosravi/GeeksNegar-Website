@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.decorators import login_required
 from blog import models
-
+from .forms import *
 
 class SignUp(generic.CreateView):
     form_class = UserCreationForm
@@ -15,6 +15,7 @@ class SignUp(generic.CreateView):
 def ProfileView(request):
     post_list =  models.Post.objects.all()
     user_posts=[]
+    form = ProfilePicForm
     for post in post_list:
         print(post.member.all())
         for member in post.member.all():
@@ -22,6 +23,7 @@ def ProfileView(request):
                 print(post)
                 user_posts.append(post)
     context={
+        'form':form,
         'post_list':user_posts,
     }
     return render(request, 'accounts/profile.html',context=context)
@@ -41,3 +43,24 @@ def ProfileViewOther(request,username):
         'post_list':user_posts,
     }
     return render(request, 'accounts/profile_other.html',context=context)
+
+def prfilepicchange(request,username):
+    if request.method == 'POST':
+            user = request.user
+            custom_user, created = models.CustomUser.objects.get_or_create(user=user)
+            try:
+                user_liked = models.Like.objects.get(post=create_id, user=user)
+            except:
+                user_liked = None
+
+            if user_liked:
+                user_liked.likecount -= 1
+                liked.user.remove(request.user)
+                user_liked.save()
+            else:
+                liked.user.add(request.user)
+                liked.likecount += 1
+                liked.save()
+            context={'post' : create_id
+            }
+            return render(request, 'blog/post_detail.html',context=context)

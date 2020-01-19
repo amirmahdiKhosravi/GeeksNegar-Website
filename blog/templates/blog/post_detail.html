@@ -89,7 +89,7 @@
 
             <form class="form-group" action="{{ post.id }}/add-comment/" method="post">
                 {% csrf_token %}
-                {% for non_field_error in form.non_field_errors %}
+                {% for non_field_error in form_cm.non_field_errors %}
                     <p class="alert alert-danger">{{ non_field_error }}</p>
                 {% endfor %}
                 {% for field in form_cm %}
@@ -110,7 +110,7 @@
             <div class="card card-body">
                 {% if post.comments.all|length %}
                     {% for comment in post.comments.all %}
-                    <div><h3>@{{ comment.user }}</h3></div>
+                    <div><h3><a href="{% url 'accounts:profile-other' comment.user %}">@{{ comment.user }}</a></h3></div>
                     <div><h3><pre class="well well-lg">   {{ comment.text }}</pre></h3></div><br>
                     {% endfor %}
                 {% else %}
@@ -122,7 +122,7 @@
             <div class="card card-body">
                 {% if post.member.all|length %}
                     {% for team_member in post.member.all %}
-                    <div><h3>@{{ team_member.user }}</h3></div>
+                    <div><h3><a href="{% url 'accounts:profile-other' team_member.user %}">@{{ team_member.user }}</a></h3></div>
                         <ul class="well well-lg">
                         {% for role in team_member.role.all %}
                             <li><div><h3><pre>{{ role }}</pre></h3></div><br></li>
