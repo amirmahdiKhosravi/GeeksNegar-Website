@@ -55,10 +55,14 @@ figure img{width:300px;}
   text-align: center;
   z-index: 4;
   padding: 20px;
+  background-color:rgb(237, 237, 237);
+  margin-bottom: 50px;
+  box-shadow: 15px 15px rgb(128, 0, 0);;
 }
 
 .item-box-blog-image {
   position: relative;
+  box-shadow: #4d5f77;
 }
 
 .item-box-blog-image figure img {
@@ -69,6 +73,7 @@ figure img{width:300px;}
 .item-box-blog-date {
   position: absolute;
   z-index: 5;
+  margin-top: -15px;
   padding: 4px 20px;
   top: -20px;
   right: 8px;
@@ -116,6 +121,7 @@ figure img{width:300px;}
 .item-box-blog-text {
   max-height: 100px;
   overflow: hidden;
+  color: #4d5f77;
 }
 
 .mt-10 {
