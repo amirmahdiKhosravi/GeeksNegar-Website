@@ -23,6 +23,9 @@ class Post(models.Model):
         """
         return reverse('blog:post-detail',args=[str(self.id)])
 
+class CustomUser(models.Model):
+    user=models.ForeignKey(User, on_delete=models.CASCADE)
+    profile_image=models.OneToOneField('Image', on_delete=models.SET_NULL,  null=True , blank = True)
 
 class Video(models.Model):
     file = models.FileField(upload_to='videos/')
