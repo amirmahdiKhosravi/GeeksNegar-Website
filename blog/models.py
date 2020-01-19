@@ -25,7 +25,7 @@ class Post(models.Model):
 
 class CustomUser(models.Model):
     user=models.ForeignKey(User, on_delete=models.CASCADE)
-    profile_image=models.OneToOneField('Image', on_delete=models.SET_NULL,  null=True , blank = True)
+    profile_pic=models.ImageField(upload_to='img/profilepics/')
 
 class Video(models.Model):
     file = models.FileField(upload_to='videos/')
