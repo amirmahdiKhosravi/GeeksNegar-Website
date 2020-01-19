@@ -51,13 +51,10 @@ def comment_handler(request,post_id='1'):
     # if this is a POST request we need to process the form data
     obj = get_object_or_404(models.Post, pk=post_id)
     if request.method == 'POST':
-        
-        print("session 2")
         # create a form instance and populate it with data from the request:
         form = CommentForm(request.POST)
         # check whether it's valid:
         if form.is_valid():
-            print("form valid 2")
             # process the data in form.cleaned_data as required
             comment_text = form.cleaned_data['comment_text']
             comment, created = models.Comment.objects.get_or_create( user=request.user , text=comment_text )
