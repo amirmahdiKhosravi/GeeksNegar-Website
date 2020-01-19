@@ -57,12 +57,21 @@ figure img{width:300px;}
   padding: 20px;
   background-color:rgb(237, 237, 237);
   margin-bottom: 50px;
-  box-shadow: 15px 15px rgb(128, 0, 0);;
+  box-shadow: 15px 15px rgb(128, 0, 0);
+  transform: scale(1);  
+  transition: ease-in-out;
+  transition-duration: 0.5s;
+}
+
+.item-box-blog:hover {
+  transform: scale(1.03);
+  transition: ease-in-out;
+  transition-duration: 0.5s;
 }
 
 .item-box-blog-image {
   position: relative;
-  box-shadow: #4d5f77;
+  box-shadow:inset 20px 20px 15px #4d5f77;
 }
 
 .item-box-blog-image figure img {

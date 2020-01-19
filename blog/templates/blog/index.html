@@ -83,9 +83,9 @@
               </a>
             </div>
             <!--Data-->
-            <!-- <div class="item-box-blog-data" style="padding: px 15px;">
-            <p><i class="fa fa-user-o"></i> Admin, <i class="fa fa-comments-o"></i> Comments(3)</p>
-          </div> -->
+            <div class="item-box-blog-data" style="padding: px 15px;">
+            <p><i class="fa fa-user-o"></i> Admin, <i class="fa fa-comments-o"></i> Comments({{ post.comments.all|length }})</p>
+          </div> 
           <!--Text-->
           <div class="item-box-blog-text">
             <p>{{post.text}}</p>
