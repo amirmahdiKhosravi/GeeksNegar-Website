@@ -2,6 +2,8 @@
 {% load static %}
 {% block extraCss %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/style2.css' %}" />
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/post_index.css' %}" />
 {% endblock %}
 
 {% block title %}{{ user_other.get_username }} - Profile{% endblock %}
@@ -26,7 +28,7 @@
     </div>
     <div class="container" style="margin-bottom: 30px;">
 
-        <div class="row">
+        <div class="row" style="margin-top: 50px;">
           {% if post_list %}
           {% for post in post_list %}
           {% if post.published %}

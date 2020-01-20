@@ -6,6 +6,7 @@ from GeeksNegar import settings
 from django.views import generic
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 
 def index(request):
     post_list =  models.Post.objects.order_by('-pub_date')
