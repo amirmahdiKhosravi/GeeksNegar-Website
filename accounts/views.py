@@ -18,10 +18,12 @@ class SignUp(generic.CreateView):
         custom_user.save()
         return 1
 
+@login_required
 def ProfileView(request):
     post_list =  models.Post.objects.all()
     custom_user, created = models.CustomUser.objects.get_or_create( user=request.user )
     user_posts=[]
+    form_post = AddPostForm
     for post in post_list:
         for member in post.member.all():
             if request.user==member.user.user:
@@ -29,6 +31,7 @@ def ProfileView(request):
     context={
         'post_list':user_posts,
         'custom_user':custom_user,
+        'form_post':form_post,
     }
     return render(request, 'accounts/profile.html',context=context)
 
@@ -53,7 +56,6 @@ def ProfileViewOther(request,username):
         print(post.member.all())
         for member in post.member.all():
             if user==member.user.user:
-                print(post)
                 user_posts.append(post)
     context={
         'custom_user':custom_user,
@@ -84,4 +86,24 @@ def prfilepicchange(request):
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 def addPost(request):
-    pass
+     # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        form = AddPostForm(request.POST)
+        if form.is_valid():
+            # create a form instance and populate it with data from the request:
+            # check whether it's valid:
+            form_title = form.cleaned_data['title']
+            form_text = form.cleaned_data['caption']
+            #form_published = form.cleaned_data['published']
+            #form_date = form.cleaned_data['pub_date']
+
+            post = models.CustumPost.objects.create(first_name="Bruce", last_name="Springsteen")([CustumPost(user= request.user), CustumPost(title= form_title), CustumPost(text=form_text)])
+
+            post.save()
+            custumPost_list= models.CustumPost.objects.all()
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = AddPostForm()
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
