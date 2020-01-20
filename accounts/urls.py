@@ -6,17 +6,10 @@ app_name= 'accounts'
 urlpatterns = [
     url(r'^signup/$', views.SignUp.as_view(), name='signup'),
     url(r'^profile/$', views.ProfileView, name='profile'),
-<<<<<<< HEAD
     url(r'^profile/(?P<username>[a-zA-Z0-9]+)$', views.ProfileViewOther, name='profile-other'),
     url(r'^profile/post/create/$', views.ProfilePostCreat, name='PostCreat'),
     url(r'^profile/post/(?p<pk>\d+)/update/$', views.ProfilePostUpdate, name='PostUpdate'),
-    url(r'^profile/post/(?p<pk>\d+)/delete/$', views.ProfilePostDelete, name='PostDelete ')
-]
-||||||| merged common ancestors
-    url(r'^profile/(?P<username>[a-zA-Z0-9]+)$', views.ProfileViewOther, name='profile-other'),
-]
-=======
+    url(r'^profile/post/(?p<pk>\d+)/delete/$', views.ProfilePostDelete, name='PostDelete '),
     url(r'^profile/(?P<username>[a-zA-Z0-9_]+)$', views.ProfileViewOther, name='profile-other'),
-    url(r'^profile/(?P<username>[a-zA-Z0-9_]+)/profile-pic-change/$', views.prfilepicchange, name='profile-pic'),    
+    url(r'^profile/(?P<username>[a-zA-Z0-9_]+)/profile-pic-change/$', views.prfilepicchange, name='profile-pic')
 ]
->>>>>>> 6e19180425e193469640ce8c086e4f171a8cf3ce
