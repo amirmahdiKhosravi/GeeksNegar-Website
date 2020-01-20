@@ -30,6 +30,7 @@ def ProfileView(request):
     }
     return render(request, 'accounts/profile.html',context=context)
 
+
 @login_required
 def ProfileEdit(request):
     custom_user, created = models.CustomUser.objects.get_or_create( user=request.user )
