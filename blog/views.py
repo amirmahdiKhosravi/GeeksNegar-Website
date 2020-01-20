@@ -58,7 +58,8 @@ def comment_handler(request,post_id='1'):
         if form.is_valid():
             # process the data in form.cleaned_data as required
             comment_text = form.cleaned_data['comment_text']
-            comment, created = models.Comment.objects.get_or_create( user=request.user , text=comment_text )
+            custom_user, created = models.CustomUser.objects.get_or_create( user=request.user )
+            comment, created = models.Comment.objects.get_or_create( user=custom_user , text=comment_text )
             comment.save()
             obj.comments.add(comment)   
             obj.save()         

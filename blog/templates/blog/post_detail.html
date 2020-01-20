@@ -104,13 +104,13 @@
             </form>
             {% else %}
             <div class="alert alert-info">
-            <button class="btn btn-light">Please Login!</button></div>
+            <button class="btn btn-light"><a href="{% url 'login' %}?next={{request.path}}">Please Login!</a></button></div>
             {% endif %}
             <br/><br/><div class="text-center"><h4>Recent Comments</h4></div><hr/>
             <div class="card card-body">
                 {% if post.comments.all|length %}
                     {% for comment in post.comments.all %}
-                    <div class="row">
+                    <div class="row" style="padding: 10px;">
                         <div class="picture-container">
                           <div class="profilepicsmall">
                               <img src="{{ comment.user.profile_pic.url }}" class="profilepicsmall" id="wizardPicturePreview" title=""/>
@@ -131,7 +131,7 @@
             <div class="card card-body">
                 {% if post.member.all|length %}
                     {% for team_member in post.member.all %}
-                    <div class="row">
+                    <div class="row" style="padding: 10px;">
                         <div class="picture-container">
                           <div class="profilepicsmall">
                               <img src="{{ team_member.user.profile_pic.url }}" class="profilepicsmall" id="wizardPicturePreview" title=""/>
