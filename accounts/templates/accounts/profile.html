@@ -1,32 +1,28 @@
 {% extends 'blog/base.html' %}
 {% load static %}
 {% block extraCss %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/post_index.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/style2.css' %}" />
 {% endblock %}
 
 {% block title %}Profile{% endblock %}
 
 {% block content %}
 <div class="container" style="margin-top: 50px;">
-{% if user.is_authenticated %}
-                              
-<form class="form-group" action="{{ user.get_username }}/profile-pic-change/" method="post">
-  {% csrf_token %}
-  {% for non_field_error in form.non_field_errors %}
-      <p class="alert alert-danger">{{ non_field_error }}</p>
-  {% endfor %}
-  {% for field in form %}
-      <div>
-          {{ field }}
-      {% for error in field.errors %}
-          <p class="alert alert-danger">{{ error }}</p>
-      {% endfor %}
-      </div>
-  {% endfor %}
-  <input type="submit" value="change" class="btn btn-light">
-</form>
+{% if user.is_authenticated %}                          
+
+    <center>
     <div>
-        <center><h2>Hello {{ user.get_username }}!</h2></center><hr/>
+      <div class="picture-container">
+        <div class="profilepic">
+            <img src="{{ custom_user.profile_pic.url }}" class="profilepic" id="wizardPicturePreview" title=""/>
+        </div>
+    </div>
+    </div>
+  </center>
+    <div>
+        <center><h2>Hello {{ user.get_username }}!</h2>
+          <a href="{% url 'accounts:profile-edit' %}">Edit Profile</a>
+        </center><hr/>
     </div>
     <div>
         <h3><i class="fa fa-file"></i> Posts you are a member of that</h3><hr/>
@@ -38,7 +34,7 @@
           {% for post in post_list %}
           {% if post.published %}
           <div class="col-sm-4" >
-      
+            
             <div class="item-box-blog" >
               <div class="item-box-blog-image">
                 <!--Date-->

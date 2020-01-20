@@ -17,3 +17,14 @@
     text-align: justify;
 }
 
+.profilepicsmall{
+    margin-right:10px ;
+    width: 70px;
+    height: 70px;
+    border: 0px solid red;
+    border-radius: 100%;
+}
+
+.usernameclass{
+    margin-top: 12px;
+}

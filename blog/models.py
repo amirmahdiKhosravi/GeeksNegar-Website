@@ -25,7 +25,7 @@ class Post(models.Model):
 
 class CustomUser(models.Model):
     user=models.ForeignKey(User, on_delete=models.CASCADE)
-    profile_pic=models.ImageField(upload_to='img/profilepics/')
+    profile_pic=models.ImageField(upload_to='img/profilepics/',default='img/profilepics/default-avatar.png')
 
 class Video(models.Model):
     file = models.FileField(upload_to='videos/')
@@ -45,12 +45,12 @@ class Slider(models.Model):
     caption=models.CharField(max_length=70, null=True, blank=True)
 
 class TeamMember(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser,on_delete=models.CASCADE)
     role = models.ManyToManyField('MemberRole')
 
     def __str__(self):
         roles_str = ", ".join(str(r) for r in self.role.all())
-        return str(self.user.get_username())+' | '+roles_str
+        return str(self.user.user.get_username())+' | '+roles_str
 
 class MemberRole(models.Model):
     role = models.CharField(max_length=255)
@@ -59,11 +59,11 @@ class MemberRole(models.Model):
         return str(self.role)
 
 class Comment(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser,on_delete=models.CASCADE)
     text = models.TextField(max_length=350,blank=False)
 
     def __str__(self):
-        return str(self.user.get_username())+'->'+self.text
+        return str(self.user.user.get_username())+'->'+self.text
 
 class Like(models.Model):
     user = models.ManyToManyField(User, related_name='likes',null=True)

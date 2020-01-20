@@ -110,8 +110,17 @@
             <div class="card card-body">
                 {% if post.comments.all|length %}
                     {% for comment in post.comments.all %}
-                    <div><h3><a href="{% url 'accounts:profile-other' comment.user %}">@{{ comment.user }}</a></h3></div>
+                    <div class="row">
+                        <div class="picture-container">
+                          <div class="profilepicsmall">
+                              <img src="{{ comment.user.profile_pic.url }}" class="profilepicsmall" id="wizardPicturePreview" title=""/>
+                          </div>
+                      </div>
+                      
+                    <div class="usernameclass"><h3><a href="{% url 'accounts:profile-other' comment.user.user %}">@{{ comment.user.user }}</a></h3></div class="usernameclass">
+                </div>
                     <div><h3><pre class="well well-lg">   {{ comment.text }}</pre></h3></div><br>
+                    <hr/>
                     {% endfor %}
                 {% else %}
                 <div><h3><pre class="well well-lg">There is no Comments to show</pre></h3></div><br/>
@@ -122,12 +131,20 @@
             <div class="card card-body">
                 {% if post.member.all|length %}
                     {% for team_member in post.member.all %}
-                    <div><h3><a href="{% url 'accounts:profile-other' team_member.user %}">@{{ team_member.user }}</a></h3></div>
+                    <div class="row">
+                        <div class="picture-container">
+                          <div class="profilepicsmall">
+                              <img src="{{ team_member.user.profile_pic.url }}" class="profilepicsmall" id="wizardPicturePreview" title=""/>
+                          </div>
+                      </div>
+                    <div class="usernameclass"><h3><a href="{% url 'accounts:profile-other' team_member.user.user %}">@{{ team_member.user.user }}</a></h3></div class="usernameclass">
                         <ul class="well well-lg">
                         {% for role in team_member.role.all %}
                             <li><div><h3><pre>{{ role }}</pre></h3></div><br></li>
                         {% endfor %}
                         </ul>
+                    </div>
+                    <hr/>
                     {% endfor %}
                 {% else %}
                 <div><h3><pre class="well well-lg">There is no members to show</pre></h3></div><br>
