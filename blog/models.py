@@ -23,6 +23,19 @@ class Post(models.Model):
         """
         return reverse('blog:post-detail',args=[str(self.id)])
 
+class CustumPost(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user=models.OneToOneField(User, on_delete=models.PROTECT, null=True , blank = False)
+    title = models.CharField(max_length=255)
+    text = models.TextField(max_length=5000,blank=True)
+    #published = models.BooleanField()
+    #pub_date = models.DateField()
+    #video = models.FileField(null=True , blank = True,upload_to='videos/')
+    #image = models.ImageField(null=True , blank = True,upload_to='videos/')
+
+    def __str__(self):
+        return self.title
+
 class CustomUser(models.Model):
     user=models.ForeignKey(User, on_delete=models.CASCADE)
     profile_pic=models.ImageField(upload_to='img/profilepics/',default='img/profilepics/default-avatar.png')
