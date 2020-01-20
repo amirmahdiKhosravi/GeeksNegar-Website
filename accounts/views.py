@@ -5,6 +5,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 from blog import models
 from .forms import *
+from django.contrib.auth.decorators import login_required
 
 class SignUp(generic.CreateView):
     form_class = UserCreationForm
@@ -46,6 +47,7 @@ def ProfileEdit(request):
 def ProfileViewOther(request,username):
     user = get_object_or_404(models.User, username=username)
     post_list =  models.Post.objects.all()
+    custom_user, created = models.CustomUser.objects.get_or_create( user=user )
     user_posts=[]
     for post in post_list:
         print(post.member.all())
@@ -54,6 +56,7 @@ def ProfileViewOther(request,username):
                 print(post)
                 user_posts.append(post)
     context={
+        'custom_user':custom_user,
         'user_other':user,
         'post_list':user_posts,
     }
