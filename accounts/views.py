@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404,HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from django.views import generic
 from blog import models
@@ -10,7 +11,7 @@ class SignUp(generic.CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy('accounts:profile')
     template_name = 'accounts/signup.html'
-    
+
     def generate_invoice(self):
         print("hi")
         custom_user, created = models.CustomUser.objects.get_or_create( user=self.object )
@@ -63,7 +64,7 @@ def ProfileViewOther(request,username):
 
 def prfilepicchange(request):
     # if this is a POST request we need to process the form data\
-    if request.method == 'POST': 
+    if request.method == 'POST':
         # create a form instance and populate it with data from the request:
         form = ProfilePicForm(request.POST, request.FILES)
         #print(request.FILES['pic'])
