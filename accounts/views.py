@@ -2,7 +2,6 @@ from django.shortcuts import render, get_object_or_404,HttpResponseRedirect
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views import generic
-from django.contrib.auth.decorators import login_required
 from blog import models
 from .forms import *
 
@@ -17,7 +16,6 @@ class SignUp(generic.CreateView):
         custom_user.save()
         return 1
 
-@login_required
 def ProfileView(request):
     post_list =  models.Post.objects.all()
     custom_user, created = models.CustomUser.objects.get_or_create( user=request.user )
