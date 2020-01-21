@@ -82,3 +82,6 @@ def prfilepicchange(request):
     else:
         form = ProfilePicForm()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+def addPost(request):
+    pass
