@@ -91,15 +91,9 @@ def addPost(request):
     if request.method == 'POST':
         form = AddPostForm(request.POST)
         if form.is_valid():
-            # create a form instance and populate it with data from the request:
-            # check whether it's valid:
             form_title = form.cleaned_data['title']
             form_text = form.cleaned_data['caption']
-            #form_published = form.cleaned_data['published']
-            #form_date = form.cleaned_data['pub_date']
-
             post = models.CustumPost.objects.create(user=request.user,title=form_title,text=form_text)
-
             post.save()
             custumPost_list= models.CustumPost.objects.all()
 
