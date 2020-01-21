@@ -23,6 +23,15 @@ class Post(models.Model):
         """
         return reverse('blog:post-detail',args=[str(self.id)])
 
+class CustumPost(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text="Unique ID for this particular post")
+    user=models.ForeignKey(User, on_delete=models.PROTECT, null=True , blank = False)
+    title = models.CharField(max_length=255)
+    text = models.TextField(max_length=300,blank=True)
+
+    def __str__(self):
+        return self.title
+
 class CustomUser(models.Model):
     user=models.ForeignKey(User, on_delete=models.CASCADE)
     profile_pic=models.ImageField(upload_to='img/profilepics/',default='img/profilepics/default-avatar.png')

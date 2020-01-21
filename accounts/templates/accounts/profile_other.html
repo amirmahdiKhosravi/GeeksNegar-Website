@@ -23,9 +23,47 @@
         <center><h2>{{ user_other.get_username }}!</h2>
         </center><hr/>
     </div>
+
+    <div>
+      <h3><i class="fab fa-twitter"></i> {{ user_other.get_username }} Twitts</h3><hr/>
+    </div>
+
+    <div class="container" style="margin-bottom: 30px;">
+
+      <div class="row" style="margin-top: 50px;">
+        {% if custom_post_list %}
+        {% for custom_post in custom_post_list %}
+        <div class="col-sm-4" >
+
+          <div class="item-box-blog" >
+              <div class="item-box-blog-body">
+                <!--Heading-->
+                <div class="item-box-blog-heading">
+                  <a href="../../blog/{{post.id}}" tabindex="0" style="color:rgb(128, 0, 0);">
+                    <h5>{{custom_post.title}}</h5>
+                  </a>
+                </div>
+              <!--Text-->
+              <div class="item-box-blog-text">
+                <marquee>{{custom_post.text}}</marquee>
+              </div>
+              <!--Read More Button-->
+            </div>
+          </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p>No twitts are available.</p>
+    {% endif %}
+    </div>
+      </div>
+
+
     <div>
         <h3><i class="fa fa-file"></i> Posts {{ user_other.get_username }} is a member of that</h3><hr/>
     </div>
+
+
     <div class="container" style="margin-bottom: 30px;">
 
       <div class="row" style="margin-top: 50px;">
@@ -33,7 +71,7 @@
         {% for post in post_list %}
         {% if post.published %}
         <div class="col-sm-4" >
-    
+
           <div class="item-box-blog" >
             <div class="item-box-blog-image">
               <!--Date-->
@@ -42,11 +80,11 @@
               {% if post.image is not None %}
               <figure> <img src="/media/{{post.image}}" width="100%" height="300px;"> </figure>
               {% endif %}
-    
+
               {% if post.video is not None %}
               <figure> <video width="100%" height="300px;" controls><source src="/media/{{post.video}}" type="video/mp4"></video> </figure>
                 {% endif %}
-    
+
               </div>
               <div class="item-box-blog-body">
                 <!--Heading-->
@@ -58,7 +96,7 @@
                 <!--Data-->
                 <div class="item-box-blog-data" style="padding: px 15px;">
                 <p><i class="fa fa-user-o"></i> Admin, <i class="fa fa-comments-o"></i> Comments({{ post.comments.all|length }})</p>
-              </div> 
+              </div>
               <!--Text-->
               <div class="item-box-blog-text">
                 <p>{{post.text}}</p>
@@ -67,7 +105,7 @@
               <!--Read More Button-->
             </div>
           </div>
-    
+
           <!-- <div class="thumbnail">
           <a href="{{post.id}}">
           <div><h2>{{ post.title }}</h2></div>

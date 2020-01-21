@@ -64,6 +64,11 @@ class PostAdmin(admin.ModelAdmin):
     get_members.short_description = 'member(s)'
     #readonly_fields=('likes', )
 
+@admin.register(CustumPost)
+class CustomPostAdmin(admin.ModelAdmin):
+    list_display = ('id','title')
+
+
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
