@@ -39,7 +39,6 @@ def ProfileView(request):
 @login_required
 def ProfileEdit(request):
     custom_user, created = models.CustomUser.objects.get_or_create( user=request.user )
-    user_posts=[]
     form = ProfilePicForm
     context={
         'form':form,
@@ -51,6 +50,7 @@ def ProfileViewOther(request,username):
     user = get_object_or_404(models.User, username=username)
     post_list =  models.Post.objects.all()
     custom_user, created = models.CustomUser.objects.get_or_create( user=user )
+    custom_post_list =  models.CustumPost.objects.all().filter(user=user)
     user_posts=[]
     for post in post_list:
         print(post.member.all())
@@ -58,6 +58,7 @@ def ProfileViewOther(request,username):
             if user==member.user.user:
                 user_posts.append(post)
     context={
+        'custom_post_list':custom_post_list,
         'custom_user':custom_user,
         'user_other':user,
         'post_list':user_posts,
@@ -97,10 +98,11 @@ def addPost(request):
             #form_published = form.cleaned_data['published']
             #form_date = form.cleaned_data['pub_date']
 
-            post = models.CustumPost.objects.create(first_name="Bruce", last_name="Springsteen")([CustumPost(user= request.user), CustumPost(title= form_title), CustumPost(text=form_text)])
+            post = models.CustumPost.objects.create(user=request.user,title=form_title,text=form_text)
 
             post.save()
             custumPost_list= models.CustumPost.objects.all()
+
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
     # if a GET (or any other method) we'll create a blank form

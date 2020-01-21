@@ -24,7 +24,6 @@ class Post(models.Model):
         return reverse('blog:post-detail',args=[str(self.id)])
 
 class CustumPost(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user=models.OneToOneField(User, on_delete=models.PROTECT, null=True , blank = False)
     title = models.CharField(max_length=255)
     text = models.TextField(max_length=5000,blank=True)

@@ -31,15 +31,21 @@
   </div>
 
   <div class="container">
-
+    <div>
+      <center>
+        <h3>Add New Twit</h3>
+        
+      </center>
+  
+    </div>
     <form action="{% url 'accounts:add-post' %}" method="post">
       {% csrf_token %}
       {{ form_post }}
-      <input type="submit" value="Add Post" class="btn btn-light">
+      <input type="submit" value="Add Post" class="btn btn-dark" style="width: 100%;">
     </form>
 
   </div>
-
+  <hr/>
   <div>
     <h3><i class="fa fa-file"></i> Posts you are a member of that</h3><hr/>
   </div>
