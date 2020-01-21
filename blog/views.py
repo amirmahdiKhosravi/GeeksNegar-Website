@@ -9,7 +9,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 
 def index(request):
-    post_list =  models.Post.objects.order_by('-pub_date')
+    post_list =  models.Post.objects.order_by('pub_date')[:6]
     slider_list= models.Slider.objects.order_by('-id')
     context={'post_list' : post_list, 'slider_list' : slider_list
     }
@@ -58,7 +58,8 @@ def comment_handler(request,post_id='1'):
         if form.is_valid():
             # process the data in form.cleaned_data as required
             comment_text = form.cleaned_data['comment_text']
-            comment, created = models.Comment.objects.get_or_create( user=request.user , text=comment_text )
+            custom_user, created = models.CustomUser.objects.get_or_create( user=request.user )
+            comment, created = models.Comment.objects.get_or_create( user=custom_user , text=comment_text )
             comment.save()
             obj.comments.add(comment)   
             obj.save()         

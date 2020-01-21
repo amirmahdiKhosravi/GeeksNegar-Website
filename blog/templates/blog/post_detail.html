@@ -28,17 +28,17 @@
             <!-- Like button load -->
                     {% if post_like.likecount != 0 %}
                         {% if user in post_like.user.all %}
-                        <td><button type="button" class="btn btn-light" name="{{post.id}}" id="like">Liked</button></td> 
+                        <td><button type="button" class="btn btn-danger" name="{{post.id}}" id="like">Liked</button></td> 
                         {% else %}
-                            <td><button type="button" class="btn btn-light" name="{{post.id}}" id="like">Like</button></td>
+                            <td><button type="button" class="btn btn-danger" name="{{post.id}}" id="like">Like</button></td>
                         {% endif %}
                     {% else %}
-                        <td><button type="button" class="btn btn-light" name="{{post.id}}" id="like">Like</button></td>
+                        <td><button type="button" class="btn btn-danger" name="{{post.id}}" id="like">Like</button></td>
                     {% endif %}
                     
                     <!-- if user not logged in -->
                     {% else %}
-                    <td><button type="button" class="btn btn-light"><a href="{% url 'login' %}?next={{request.path}}">
+                    <td><button type="button" class="btn btn-danger"><a href="{% url 'login' %}?next={{request.path}}">
                         Please login to like this post!</a></button></td> 
                     </tr>
                     </table>
@@ -46,7 +46,7 @@
             </tr>
             </table>
             
-            <!--AJAX Like button handle -->
+            <!-- AJAX Like button handle -->
             <script>
                 $('#like').click(function(){
                       $.ajax({
@@ -72,11 +72,11 @@
                     })
             </script>
     <!-- Comments show button -->
-           <button class="btn btn-light" type="button" id="CMSHOWbtn"
+           <button class="btn btn-danger" type="button" id="CMSHOWbtn"
            data-toggle="collapse" data-target="#collapseComments" aria-expanded="false" aria-controls="collapseComments">
            Comments <div class="badge">{{ post.comments.all|length }}</div></button>
         <!-- team members show button -->
-            <button class="btn btn-light" type="button" id="TMSHOWbtn"
+            <button class="btn btn-danger" type="button" id="TMSHOWbtn"
             data-toggle="collapse" data-target="#collapseTeam" aria-expanded="false" aria-controls="collapseTeam">
             Members <div class="badge">{{ post.member.all|length }}</div></button>
         </div>
@@ -104,13 +104,13 @@
             </form>
             {% else %}
             <div class="alert alert-info">
-            <button class="btn btn-light">Please Login!</button></div>
+            <button class="btn btn-light"><a href="{% url 'login' %}?next={{request.path}}">Please Login!</a></button></div>
             {% endif %}
             <br/><br/><div class="text-center"><h4>Recent Comments</h4></div><hr/>
             <div class="card card-body">
                 {% if post.comments.all|length %}
                     {% for comment in post.comments.all %}
-                    <div class="row">
+                    <div class="row" style="padding: 10px;">
                         <div class="picture-container">
                           <div class="profilepicsmall">
                               <img src="{{ comment.user.profile_pic.url }}" class="profilepicsmall" id="wizardPicturePreview" title=""/>
@@ -131,7 +131,7 @@
             <div class="card card-body">
                 {% if post.member.all|length %}
                     {% for team_member in post.member.all %}
-                    <div class="row">
+                    <div class="row" style="padding: 10px;">
                         <div class="picture-container">
                           <div class="profilepicsmall">
                               <img src="{{ team_member.user.profile_pic.url }}" class="profilepicsmall" id="wizardPicturePreview" title=""/>

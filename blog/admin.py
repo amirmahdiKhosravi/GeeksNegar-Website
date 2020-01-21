@@ -60,7 +60,7 @@ class PostAdmin(admin.ModelAdmin):
     list_filter = ('title', 'text','pub_date')
     list_display = ('id','title', 'published', 'get_members')
     def get_members(self, obj):
-        return " | ".join([p.user.get_username() for p in obj.member.all()])
+        return " | ".join([p.user.user.get_username() for p in obj.member.all()])
     get_members.short_description = 'member(s)'
     #readonly_fields=('likes', )
 

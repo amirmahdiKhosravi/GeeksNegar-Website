@@ -24,9 +24,10 @@
 </head>
 
 <body>
-<div class="image-container set-full-height" style="background-image: url('{% static 'img/wizard.jpg' %}')">
+<div class="image-container set-full-height" style="background-image: url('../../../media/img/cyberpunk-3849.jpg');  background-repeat: no-repeat;
+background-attachment: fixed;">
     <!--   Creative Tim Branding   -->
-    <a href="http://creative-tim.com">
+    <a href="../../blog">
          <div class="logo-container">
             <div class="logo">
 
@@ -37,11 +38,6 @@
         </div>
     </a>
 
-	<!--  Made With Get Shit Done Kit  -->
-		<a href="http://demos.creative-tim.com/get-shit-done/index.html?ref=get-shit-done-bootstrap-wizard" class="made-with-mk">
-			<div class="brand">GK</div>
-			<div class="made-with">Made with <strong>GSDK</strong></div>
-		</a>
 
 <!--   Big container   -->
 <div class="container">
@@ -56,44 +52,33 @@
 
                 <div class="wizard-header">
                     <h3>
-                       <b>LOGIN </b>TO YOUR PROFILE <br>
+                       <b>SIGNUP </b>TO GEEKSNEGAR <br>
                     </h3>
                 </div>
-
+<!--
       <div class="wizard-navigation">
         <ul>
-                        <li><a href="#signuptab" data-toggle="tab">Sign up</a></li>
+                        <li><a href="#about" data-toggle="tab">Sign up</a></li>
                         <li><a href="{% url 'login' %}">Login</a></li>
                     </ul>
 
-      </div>
+      </div> -->
+      <hr/>
 
 
         
-                  <div class="tab-content">
+                  <div class="tab-content" style="margin-left:50px;width: 500px;">
 
-                      <div class="form-group tab-pane" id="signuptab">
+                      <div class="form-group" id="about">
                         <div class="row">
-                            <div class="col-sm-4 col-sm-offset-1">
-
-                            <!--
-                               <div class="picture-container">
-                                    <div class="picture">
-                                        <img src="{% static 'img/default-avatar.png' %}" class="picture-src" id="wizardPicturePreview" title=""/>
-                                        <input type="file" id="wizard-picture">
-                                    </div>
-                                    <h6>Choose Picture</h6>
-                                </div>
-                                -->
+                            <div class="container">
                             </div>
-                            <div class="col-sm-4">
                                 <form method="post">
                                     {% csrf_token %}
                                     {{ form.as_p }}
-                                    <button type="submit">Sign up</button>
+                                    <button class="btn btn-primary" type="submit">Sign up</button>
                                 
-                </form>
-                            </div>
+                                </form>
                         </div>
                       </div>
                     
