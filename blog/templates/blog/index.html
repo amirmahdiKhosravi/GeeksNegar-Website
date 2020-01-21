@@ -53,9 +53,10 @@
 {% endblock %}
 
 {% block content %}
-<div class="container-fluid" style="margin-top:50px; margin-bottom:200px;">
-
+<div class="container-fluid" style="padding: 40px;color: white;">
+  <h2><i class="fa fa-file"></i> Recent Posts</h2></div>
   <div class="row">
+
     {% if post_list %}
     {% for post in post_list %}
     {% if post.published %}

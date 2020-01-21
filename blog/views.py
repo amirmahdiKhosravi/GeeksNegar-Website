@@ -9,7 +9,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 
 def index(request):
-    post_list =  models.Post.objects.order_by('-pub_date')
+    post_list =  models.Post.objects.order_by('pub_date')[:6]
     slider_list= models.Slider.objects.order_by('-id')
     context={'post_list' : post_list, 'slider_list' : slider_list
     }
