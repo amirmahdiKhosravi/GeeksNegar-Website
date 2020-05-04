@@ -7,6 +7,12 @@ from django.views import generic
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
+############### aparat API
+from django.core import serializers
+import json
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+
 
 def index(request):
     post_list =  models.Post.objects.order_by('pub_date')[:6]
@@ -20,7 +26,7 @@ def post_detail(request,post_id='1'):
     post_like_handle(request,post_id)
     obj = get_object_or_404(models.Post, pk=post_id)
     post_like, created = models.Like.objects.get_or_create(post=obj)
-    context={'post' : obj,    
+    context={'post' : obj,
             'post_like' : post_like,
             'form_cm' : CommentForm
     }
@@ -62,8 +68,8 @@ def comment_handler(request,post_id='1'):
             custom_user, created = models.CustomUser.objects.get_or_create( user=request.user )
             comment, created = models.Comment.objects.get_or_create( user=custom_user , text=comment_text )
             comment.save()
-            obj.comments.add(comment)   
-            obj.save()         
+            obj.comments.add(comment)
+            obj.save()
             # redirect to a new URL:
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
@@ -71,6 +77,11 @@ def comment_handler(request,post_id='1'):
     else:
         form = CommentForm()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+#get videos from Aparat
+@csrf_exempt
+def aparat(request):
+    pass
 
 class SignUp(generic.CreateView):
     form_class = UserCreationForm
